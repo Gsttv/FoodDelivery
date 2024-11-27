@@ -3,8 +3,8 @@ import PagerView from "react-native-pager-view"
 
 export function Banner() {
  return (
-   <View className="w-full h-36 md:h-60 rounded-2xl mt-5 mb-4">
-    <PagerView style={{ flex: 1 }} initialPage={0} pageMargin={14}>
+   <View className="w-full h-36 md:h-60 rounded-2xl mt-5 mb-4" style={{ flex: 1 }}>
+    
 
       <Pressable 
         className="w-full h-36 md:h-60 rounded-2xl" 
@@ -16,17 +16,8 @@ export function Banner() {
         />
       </Pressable>
 
-      <Pressable 
-        className="w-full h-36 md:h-60 rounded-2xl" 
-        key="2"
-      >
-        <Image
-          source={require("../../assets/banner2.png")}
-          className="w-full h-36 md:h-60 rounded-2xl"
-        />
-      </Pressable>
 
-    </PagerView>
+ 
    </View>
   );
 }
