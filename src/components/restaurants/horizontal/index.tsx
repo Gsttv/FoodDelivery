@@ -1,7 +1,13 @@
 import { View, Pressable, Text, Image } from 'react-native';
 import { RestaurantsProps } from '..';
 
-export function RestaurantItem({ item }: { item: RestaurantsProps }) {
+
+interface Props {
+  item: RestaurantsProps;
+  onAddToCart: () => void;
+}
+
+export function RestaurantItem({ item, onAddToCart }: Props) {
  return (
    <Pressable 
     className='flex flex-col items-center justify-center'

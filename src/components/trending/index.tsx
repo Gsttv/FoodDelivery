@@ -14,12 +14,16 @@ export interface FoodProps{
   restaurantId: string;
 }
 
-export function TrendingFoods() {
+interface Props {
+  addToCart: (food: FoodProps) => void;
+}
+
+export function TrendingFoods({ addToCart }: Props) {
   const [foods, setFoods] = useState<FoodProps[]>([])
 
   useEffect(() => {
     async function getFoods(){
-      const response = await fetch("http://192.168.0.6:3000/foods")
+      const response = await fetch("http://192.168.1.17:3000/foods")
       const data = await response.json()
       setFoods(data);
     }
@@ -30,7 +34,7 @@ export function TrendingFoods() {
  return (
    <FlatList
       data={foods}
-      renderItem={ ({ item }) => <CardHorizontalFood food={item} /> }
+      renderItem={ ({ item }) => <CardHorizontalFood food={item} onAddToCart={() => addToCart(item)} /> }
       horizontal={true}
       contentContainerStyle={{ gap: 14, paddingLeft: 16, paddingRight: 16}}
       showsHorizontalScrollIndicator={false}

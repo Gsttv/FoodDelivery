@@ -2,7 +2,12 @@ import { View, Pressable, Text, Image } from 'react-native';
 import { RestaurantsProps } from '..'
 import { Ionicons } from '@expo/vector-icons'
 
-export function RestaurantItem({ item }: { item: RestaurantsProps }) {
+interface Props {
+  item: RestaurantsProps;
+  onAddToCart: () => void;
+}
+
+export function RestaurantItem({ item, onAddToCart }: Props) {
  return (
    <Pressable className='flex flex-row items-center justify-start gap-2'>
      <Image
