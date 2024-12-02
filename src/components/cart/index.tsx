@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Pressable } from 'react-native';
+import { View, Text, FlatList, Pressable, Modal, Alert } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { FoodProps } from '../trending';
+import { CheckoutScreen } from '../payment';
 
 interface CartItem extends FoodProps {
   quantity: number;
@@ -23,8 +24,8 @@ const Cart: React.FC<Props> = ({
   clearCart 
 }) => {
   const [cartItemsWithQuantity, setCartItemsWithQuantity] = useState<CartItem[]>([]);
+  const [isCheckoutModalVisible, setIsCheckoutModalVisible] = useState(false);
 
-  // Convert passed cartItems to cart items with quantity when component mounts or cartItems change
   useEffect(() => {
     const processedCartItems = cartItems.reduce((acc, item) => {
       const existingItem = acc.find(cartItem => cartItem.id === item.id);
@@ -56,6 +57,17 @@ const Cart: React.FC<Props> = ({
     return cartItemsWithQuantity.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  const handleCheckoutComplete = () => {
+
+    clearCart();
+    setIsCheckoutModalVisible(false);
+    
+
+    Alert.alert(
+      'Compra Finalizada',
+      'Seu pedido foi processado com sucesso!'
+    );
+  };
 
   return (
     <View className="flex-1 bg-white px-4 pt-6">
@@ -92,7 +104,10 @@ const Cart: React.FC<Props> = ({
         ListFooterComponent={
           <View className="py-4">
             <Text className="text-2xl font-bold">Total: R$ {getTotalPrice().toFixed(2)}</Text>
-            <Pressable className="bg-green-500 py-3 rounded-lg mt-4">
+            <Pressable 
+            className="bg-green-500 py-3 rounded-lg mt-4"
+            onPress={() => setIsCheckoutModalVisible(true)}
+            >
               <Text className="text-white text-center text-lg font-medium">
                 Finalizar Compra
               </Text>
@@ -100,6 +115,25 @@ const Cart: React.FC<Props> = ({
           </View>
         }
       />
+
+      <Modal
+        visible={isCheckoutModalVisible}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setIsCheckoutModalVisible(false)}
+      >
+        <CheckoutScreen 
+          cartItems={cartItemsWithQuantity} 
+          total={getTotalPrice()}
+          onCheckoutComplete={handleCheckoutComplete}
+        />
+        <Pressable 
+          onPress={() => setIsCheckoutModalVisible(false)}
+          className="absolute top-4 right-4"
+        >
+          <Feather name="x" size={24} color="#475569" />
+        </Pressable>
+      </Modal>
     </View>
   );
 };
