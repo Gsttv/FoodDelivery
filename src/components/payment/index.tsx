@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, ScrollView, Pressable, Alert } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { FoodProps } from '../trending';
 
 interface CheckoutProps {
@@ -34,7 +33,7 @@ export const CheckoutScreen: React.FC<CheckoutProps> = ({
   ];
 
   const handleCheckout = () => {
-    // Validate address and payment method
+
     if (!address.street || !address.number || !paymentMethod) {
       Alert.alert(
         'Erro de Validação',
@@ -48,7 +47,7 @@ export const CheckoutScreen: React.FC<CheckoutProps> = ({
     <ScrollView className="flex-1 bg-white p-4">
       <Text className="text-2xl font-bold mb-4">Finalizar Compra</Text>
 
-      {/* Address Section */}
+
       <View className="mb-4">
         <Text className="text-lg font-semibold mb-2">Endereço de Entrega</Text>
         <TextInput
@@ -97,7 +96,7 @@ export const CheckoutScreen: React.FC<CheckoutProps> = ({
         />
       </View>
 
-      {/* Payment Method Section */}
+
       <View>
         <Text className="text-lg font-semibold mb-2">Forma de Pagamento</Text>
         {paymentMethods.map((method) => (
@@ -118,7 +117,7 @@ export const CheckoutScreen: React.FC<CheckoutProps> = ({
         ))}
       </View>
 
-      {/* Order Summary */}
+
       <View className="mt-4">
         <Text className="text-lg font-semibold">Resumo do Pedido</Text>
         {cartItems.map((item) => (
@@ -136,15 +135,27 @@ export const CheckoutScreen: React.FC<CheckoutProps> = ({
         </View>
       </View>
 
-      {/* Checkout Button */}
+
       <Pressable 
         onPress={handleCheckout}
-        className="bg-green-500 py-4 rounded-lg mt-4"
+        disabled={total === 0}
+        className={`py-4 rounded-lg mt-4 ${
+          total === 0 
+            ? 'bg-gray-400'
+            : 'bg-green-500' 
+        }`}
       >
-        <Text className="text-white text-center text-lg font-medium">
+        <Text className={`text-center text-lg font-medium ${
+          total === 0 ? 'text-gray-600' : 'text-white'
+        }`}>
           Confirmar Pedido
         </Text>
       </Pressable>
+      {total === 0 && (
+        <Text className="text-red-500 text-center mt-2 text-sm">
+          Adicione itens ao carrinho antes de finalizar o pedido
+        </Text>
+      )}
     </ScrollView>
   );
 };
