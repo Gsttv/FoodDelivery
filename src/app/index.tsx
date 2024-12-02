@@ -5,13 +5,24 @@ import Constants from 'expo-constants'
 import { Banner } from "../components/banner";
 import { Search } from "../components/search";
 import { Section } from "../components/section";
-import { TrendingFoods } from "../components/trending";
+import { FoodProps, TrendingFoods } from "../components/trending";
 import { Restaurants } from "../components/restaurants";
 import { RestaurantVerticalList } from "../components/list";
+import Cart from "../components/cart";
+import { useState } from "react";
 
 const statusBarHeight = Constants.statusBarHeight;
 
 export default function Index() {
+
+  const [cartItems, setCartItems] = useState<FoodProps[]>([]);
+
+  const addToCart = (food: FoodProps) => {
+    setCartItems([...cartItems, food]);
+  };
+  // const addToCart = (food: { id: string; name: string; image: string; price: number }) => {
+  //   // Implementação da função addToCart
+  // };
   return (
       <ScrollView style = {{ flex: 1 }} className="bg-slate-200"
       showsVerticalScrollIndicator={false}>
@@ -32,7 +43,7 @@ export default function Index() {
         action={ () => console.log("CLICOU NO VEJA MAIS")}
         size="text-2xl"
       />
-      <TrendingFoods/>
+      <TrendingFoods addToCart={addToCart}/>
 
       <Section
         name="Famosos no DevFood"
@@ -41,7 +52,7 @@ export default function Index() {
         size="text-xl"
       />
 
-      <Restaurants/>
+      <Restaurants addToCart={addToCart}/>
 
       <Section
         name="Restaurantes"
@@ -50,7 +61,9 @@ export default function Index() {
         size="text-xl"
       />
 
-      <RestaurantVerticalList/>
+      <RestaurantVerticalList addToCart={addToCart}/>
+
+      <Cart cartItems={cartItems}/>
     </ScrollView>
 
   );

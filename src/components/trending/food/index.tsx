@@ -3,9 +3,14 @@ import { Ionicons } from '@expo/vector-icons'
 
 import { FoodProps } from '..'
 
-export function CardHorizontalFood({ food }: { food: FoodProps }) {
+interface Props {
+  food: FoodProps;
+  onAddToCart: () => void;
+}
+
+export function CardHorizontalFood({ food, onAddToCart }: Props) {
  return (
-   <Pressable className='flex flex-col rounded-xl relative'>
+   <Pressable className='flex flex-col rounded-xl relative' onPress={onAddToCart}>
     <Image
       source={{ uri: food.image }}
       className="w-44 h-36 rounded-xl"
