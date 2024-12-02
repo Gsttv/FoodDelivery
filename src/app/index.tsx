@@ -17,12 +17,43 @@ export default function Index() {
 
   const [cartItems, setCartItems] = useState<FoodProps[]>([]);
 
-  const addToCart = (food: FoodProps) => {
-    setCartItems([...cartItems, food]);
+  
+const addToCart = (food: FoodProps) => {
+  // Check if the item already exists in the cart
+  const existingItem = cartItems.find(item => item.id === food.id);
+  
+  if (existingItem) {
+    // If item exists, increment its quantity
+    setCartItems(cartItems.map(item => 
+      item.id === food.id 
+        ? { ...item, quantity: (item.quantity || 1) + 1 } 
+        : item
+    ));
+  } else {
+    // If item doesn't exist, add it with quantity 1
+    setCartItems([...cartItems, { ...food, quantity: 1 }]);
+  }};
+
+  const removeFromCart = (food: FoodProps) => {
+    setCartItems(cartItems.filter(item => item.id !== food.id));
   };
-  // const addToCart = (food: { id: string; name: string; image: string; price: number }) => {
-  //   // Implementação da função addToCart
-  // };
+  
+  const decreaseQuantity = (food: FoodProps) => {
+    const updatedCartItems = cartItems
+      .map(item => 
+        item.id === food.id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter(item => item.quantity > 0);
+    
+    setCartItems(updatedCartItems);
+  };
+  
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   return (
       <ScrollView style = {{ flex: 1 }} className="bg-slate-200"
       showsVerticalScrollIndicator={false}>
@@ -63,7 +94,10 @@ export default function Index() {
 
       <RestaurantVerticalList addToCart={addToCart}/>
 
-      <Cart cartItems={cartItems}/>
+      <Cart cartItems={cartItems}
+      removeFromCart={removeFromCart}
+      decreaseQuantity={decreaseQuantity}
+      clearCart={clearCart}/>
     </ScrollView>
 
   );
