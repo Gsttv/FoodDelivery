@@ -12,6 +12,7 @@ export interface FoodProps{
   rating: number;
   image: string;
   restaurantId: string;
+  quantity: number;
 }
 
 interface Props {

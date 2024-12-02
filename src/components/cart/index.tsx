@@ -10,10 +10,18 @@ interface CartItem extends FoodProps {
 
 interface Props {
   cartItems: FoodProps[];
+  removeFromCart: (food: FoodProps) => void;
+  decreaseQuantity: (food: FoodProps) => void;
+  clearCart: () => void;
 }
 
 
-const Cart: React.FC<Props> = ({ cartItems }) => {
+const Cart: React.FC<Props> = ({ 
+  cartItems, 
+  removeFromCart, 
+  decreaseQuantity,
+  clearCart 
+}) => {
   const [cartItemsWithQuantity, setCartItemsWithQuantity] = useState<CartItem[]>([]);
 
   // Convert passed cartItems to cart items with quantity when component mounts or cartItems change
@@ -44,27 +52,10 @@ const Cart: React.FC<Props> = ({ cartItems }) => {
     }
   };
 
-  const removeFromCart = (food: FoodProps) => {
-    setCartItemsWithQuantity(cartItemsWithQuantity.filter((item) => item.id !== food.id));
-  };
-
-  const decreaseQuantity = (food: FoodProps) => {
-    setCartItemsWithQuantity(
-      cartItemsWithQuantity.map((item) =>
-        item.id === food.id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      ).filter(item => item.quantity > 0)
-    );
-  };
-
   const getTotalPrice = () => {
     return cartItemsWithQuantity.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const clearCart = () => {
-    setCartItemsWithQuantity([]);
-  };
 
   return (
     <View className="flex-1 bg-white px-4 pt-6">
