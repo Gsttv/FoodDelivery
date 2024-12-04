@@ -19,7 +19,7 @@ export function RestaurantVerticalList({ addToCart }: Props) {
 
   useEffect(() => {
     async function getFoods(){
-      const response = await fetch("http://192.168.1.17:3000/restaurants")
+      const response = await fetch("http://localhost:3000/restaurants")
       const data = await response.json()
       setRestaurants(data);
     }
