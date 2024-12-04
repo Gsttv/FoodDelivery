@@ -1,0 +1,26 @@
+# Usar a imagem base do node
+FROM node:18
+
+# Definir o diretório de trabalho
+WORKDIR /app
+
+# Copiar o package.json e package-lock.json para o diretório de trabalho
+COPY package.json package-lock.json ./
+
+# Instalar dependências do projeto
+RUN npm install
+
+# Copiar o código-fonte do seu projeto para o container
+COPY . .
+
+# Instalar o json-server globalmente
+RUN npm install -g json-server
+
+# Copiar o arquivo db.json (do diretório raiz do projeto) para o diretório de trabalho do container
+COPY db.json ./db.json
+
+# Expor as portas necessárias para o Expo e o json-server
+EXPOSE 19000 19001 8081 3000
+
+# Rodar o Expo e o json-server juntos, usando uma execução em paralelo
+CMD npm start & json-server --watch db.json --host 0.0.0.0 --port 3000
