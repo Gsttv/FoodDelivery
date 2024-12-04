@@ -1,50 +1,44 @@
-# Welcome to your Expo app 👋
+# FoodDelivery 🍔🚴‍♂️
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um aplicativo de delivery desenvolvido com **React Native** e **Expo**. O FoodDelivery permite que os usuários explorem restaurantes, façam pedidos e acompanhem suas entregas de forma prática e intuitiva.
 
-## Get started
+## 🛠️ Funcionalidades
 
-1. Install dependencies
+- **Explorar restaurantes:** Navegue por uma lista de restaurantes e cardápios.
+- **Pedidos personalizados:** Adicione itens ao carrinho e faça pedidos com facilidade.
+- **Rastreamento de entregas:** Acompanhe o status do seu pedido em tempo real.
+- **Integração com APIs externas:** Dados dinâmicos alimentados por um backend.
 
+## 🚀 Tecnologias Utilizadas
+
+- **React Native** com **Expo**
+- **React Navigation** para navegação entre telas
+- Integração com APIs externas para informações de restaurantes e pedidos
+
+## 👥 Integrantes do Projeto
+
+- [Gustavo Morais](https://github.com/Gsttv)  
+- [Marianne Soares](https://github.com/MarianneSoares)
+- [Yuri Maia](https://github.com/YuriMaiaRibeiro)  
+
+## 🐳 Como Executar o Container
+
+**Pré-requisitos:** Docker instalado.
+
+1. Após clonar o repositório, execute os seguintes comandos:  
    ```bash
-   npm install
-   ```
+   docker build -t food-delivery-app .
+   docker run -p 8081:8081 food-delivery-app
 
-2. Start the app
+2. O serviço estará disponível na porta 8081.
 
-   ```bash
-    npx expo start
-   ```
+### 🔍 Observações
+O *Dockerfile* expõe as portas *8081, 19000 e 19001*, mas recomendamos acessar o serviço pela porta 8081 para maior simplicidade.
+A aplicação utiliza Node.js 18 combinado, priorizando leveza e eficiência.
+Todas as dependências do projeto são automaticamente instaladas no momento da construção do container.
 
-In the output, you'll find options to open the app in a
+### 📚 Contexto do Projeto
+Este aplicativo foi desenvolvido como parte das disciplinas *Desenvolvimento de Aplicativos Móveis* e *DevOps.*
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- No módulo de Desenvolvimento de Aplicativos Móveis, focamos na construção de soluções práticas utilizando React Native, aprendendo a integrar técnicas modernas de navegação, consumo de APIs e gerenciamento de estado.
+- Já no módulo de DevOps, aplicamos práticas de containerização para facilitar o deploy e gerenciamento da aplicação.
